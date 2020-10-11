@@ -1,0 +1,19 @@
+server:
+  port: 8030
+spring:
+  application:
+    name: api-zuul-server
+zuul:
+  routes:
+     service-product: /product-service/**
+#    product-service:
+#      path: /product-service/** #映射路径
+#      serviceId: service-product #配置转发的微服务的服务名称
+#      url: http://127.0.0.1:8080 #实际url
+#配置eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8088/eureka/  #多个euerka用逗号隔开
+  instance:
+    prefer-ip-address: true #使用IP地址注册

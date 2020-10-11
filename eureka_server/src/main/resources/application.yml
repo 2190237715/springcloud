@@ -1,0 +1,15 @@
+server:
+  port: 8088
+#配置eureka server
+eureka:
+  client:
+    register-with-eureka: false #是否将自己注册到注册中心
+    fetch-registry: false #是否从eureka中获取注册信息
+    service-url: #配置暴露给eureka Client的请求地址
+      defaultZone: http://127.0.0.1:8088/eureka/
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 4000 #剔除服务间隔
+spring:
+  application:
+    name: eureka-server

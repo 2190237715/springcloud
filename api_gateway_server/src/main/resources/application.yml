@@ -1,0 +1,68 @@
+server:
+  port: 8033
+spring:
+  zipkin:
+    base-url: http://127.0.0.1:9411/    #server的请求方式
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      probability: 1  # 采样比
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener: # 这里配置了重试策略
+      direct:
+        retry:
+          enabled: true
+      simple:
+        retry:
+          enabled: true
+  application:
+    name: api-gateway-server #服务名称
+  redis:
+    host: localhost
+    pool: 6379
+    database: 0
+  cloud: #配置SpringCloudGateway的路由
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://service-order
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+        - id: product-service
+          uri: lb://service-product
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - RewritePath=/product-service/(?<segment>.*), /$\{segment}
+          #            - name: RequestRateLimiter
+          #              args:
+          #                # 使用SpEL从容器中获取对象
+          #                key-resolver: '#{@userKeyResolver}'
+          #                # 令牌桶每秒填充平均速率
+          #                redis-rate-limiter.replenishRate: 1
+          #                # 令牌桶的上限
+          #                redis-rate-limiter.burstCapacity: 3
+#      discovery:
+#        locator:
+#          lower-case-service-id: true
+#          enabled: true
+
+#配置eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8088/eureka/  #多个euerka用逗号隔开
+  instance:
+    prefer-ip-address: true #使用IP地址注册
+logging:
+  level:
+    root:
+      org.springframework.web.servlet.DispatcherServlet: DEBUG
+      org.springframework.cloud.sleuth: DEBUG
