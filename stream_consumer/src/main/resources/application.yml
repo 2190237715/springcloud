@@ -1,0 +1,19 @@
+server:
+  port: 7003 #服务端口
+spring:
+  application:
+    name: rabbitmq-consumer #指定服务名
+  rabbitmq:
+    addresses: 127.0.0.1
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        input:  #内置获取通道
+          destination: xiaoxin-default
+        myinput: #自定义获取通道
+          destination: xiaoxin-custom-default
+      binders:
+        defaultRabbit:
+          type: rabbit

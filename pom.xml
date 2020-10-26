@@ -16,6 +16,8 @@
         <module>hystrix_turbine</module>
         <module>api_zuul_server</module>
         <module>api_gateway_server</module>
+        <module>stream_producer</module>
+        <module>stream_consumer</module>
     </modules>
 
     <parent>
