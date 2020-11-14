@@ -1,6 +1,5 @@
 package com.xiaoxin.stream;
 
-import com.xiaoxin.stream.channel.Myprocessor;
 import com.xiaoxin.stream.producer.MessageSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +19,10 @@ public class ProducerTest {
     @Autowired
     private MessageSender messageSender;
 
-    @Autowired
-    private Myprocessor myprocessor;
-
     @Test
     public void testSend() {
-        messageSender.send("hello 我要访问工具类");
+        for (int i = 0; i < 5; i++) {
+            messageSender.send("hello 我要访问工具类 change一直是最后一个吗？");
+        }
     }
 }

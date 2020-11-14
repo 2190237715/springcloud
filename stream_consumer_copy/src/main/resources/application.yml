@@ -1,5 +1,5 @@
 server:
-  port: 7003 #服务端口
+  port: 7004 #服务端口
 spring:
   application:
     name: rabbitmq-consumer #指定服务名
@@ -10,7 +10,7 @@ spring:
   cloud:
     stream:
       instanceCount: 2
-      instanceIndex: 0
+      instanceIndex: 1
       bindings:
         input:  #内置获取通道
           destination: xiaoxin-default
